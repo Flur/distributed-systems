@@ -1,7 +1,7 @@
 # distributed-systems
 Ucu
 
-You should have installed sbt=1.3.13
+You should have installed sbt=1.3.13 and javac=15
 
 run in master folder ```sbt Docker/publishLocal``` \
 run in secondary folder ```sbt Docker/publishLocal```
