@@ -44,7 +44,7 @@ object Main extends App {
           messages = messages ++ parsedContent
         }
 
-        res.contentString = JSONObject(messages).toString()
+        res.contentString = JSONObject(messages.values).toString()
         res.setContentTypeJson()
 
         Future.value(res)

@@ -11,7 +11,7 @@ and secondaries image ```docker run -d -p 8081:8081 secondary:0.1``` \
 ```docker run -d -p 8082:8081 secondary:0.1``` \
 (you can add more secondaries but then you should add their ports to master ```Main.secondariesPorts```)
 
-run ```curl -d "{\"message\":\"1\"}" -H "Content-Type: application/json" -X POST http://localhost:8080``` to add message
+run ```curl -d "{\"message\":\"1\"}" -H "Content-Type: application/json" -X POST http://localhost:8080 -D -``` to add message
 run ```curl -D - localhost:8080```  to get all messages
 
 P.S. for next iteration it will be as one sbt project and with docker compose!
