@@ -29,8 +29,6 @@ object Main extends App {
     res.contentString = contentString
     res.setContentTypeJson()
 
-    Thread.sleep(5000)
-
     Future.value(
       res
     )
@@ -41,6 +39,7 @@ object Main extends App {
     val content = req.getContentString()
     val parsedContent = JSON.parseFull(content).orNull.asInstanceOf[Map[String, String]]
 
+    Thread.sleep(5000)
 
     messages = messages ++ parsedContent
 
