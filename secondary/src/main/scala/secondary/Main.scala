@@ -29,6 +29,8 @@ object Main extends App {
     res.contentString = contentString
     res.setContentTypeJson()
 
+    Thread.sleep(5000)
+
     Future.value(
       res
     )

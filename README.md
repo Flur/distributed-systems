@@ -14,4 +14,6 @@ and secondaries image ```docker run -d -p 8081:8081 secondary:0.1``` \
 run ```curl -d "{\"message\":\"1\"}" -H "Content-Type: application/json" -X POST http://localhost:8080 -D -``` to add message
 run ```curl -D - localhost:8080```  to get all messages
 
+Secondaries have sleep for 5 sec
+
 P.S. for next iteration it will be as one sbt project and with docker compose!
