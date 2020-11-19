@@ -4,7 +4,7 @@ import com.twitter.finagle.{Http, Service, http}
 import com.twitter.util.{Await, Future}
 
 import scala.collection.mutable.ListBuffer
-import scala.util.parsing.json.{JSON, JSONObject}
+import scala.util.parsing.json.{JSON, JSONObject, JSONArray}
 
 
 object Main extends App {
@@ -44,7 +44,7 @@ object Main extends App {
           messages = messages ++ parsedContent
         }
 
-        res.contentString = JSONObject(messages.values).toString()
+        res.contentString = JSONArray(List.from(messages.values)).toString()
         res.setContentTypeJson()
 
         Future.value(res)
