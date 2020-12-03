@@ -29,18 +29,18 @@ object Main extends App {
     res.contentString = contentString
     res.setContentTypeJson()
 
-    Thread.sleep(5000)
-
     Future.value(
       res
     )
   }
 
+    // todo to sockets
   def post(req: http.Request): Future[http.Response] = {
     val res = http.Response(req.version, http.Status.Ok)
     val content = req.getContentString()
     val parsedContent = JSON.parseFull(content).orNull.asInstanceOf[Map[String, String]]
 
+    Thread.sleep(5000)
 
     messages = messages ++ parsedContent
 

@@ -17,3 +17,10 @@ run ```curl -D - localhost:8080```  to get all messages
 Secondaries have sleep for 5 sec
 
 P.S. for next iteration it will be as one sbt project and with docker compose!
+
+**Python Secondary**
+- go to secondary-py
+- download python 3.8
+- create venv ```python -m venv venv```
+- install flask ```pip install Flask``` or ```pip install -r requirements.txt```
+- run ```export FLASK_APP=secondary.py``` and ```flask run```
