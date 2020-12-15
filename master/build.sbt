@@ -10,3 +10,10 @@ lazy val master = (project in file("."))
     name := "master",
     libraryDependencies += "com.twitter" %% "finagle-http" % "20.10.0",
   )
+
+lazy val secondary = (project in file("secondary"))
+  .enablePlugins(JavaAppPackaging)
+  .settings(
+  name := "secondary",
+  libraryDependencies += "com.twitter" %% "finagle-http" % "20.10.0",
+)

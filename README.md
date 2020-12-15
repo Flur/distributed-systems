@@ -24,3 +24,6 @@ P.S. for next iteration it will be as one sbt project and with docker compose!
 - create venv ```python -m venv venv```
 - install flask ```pip install Flask``` or ```pip install -r requirements.txt```
 - run ```export FLASK_APP=secondary.py``` and ```flask run```
+
+**TODO**
+**UPDATE THIS DOCS!!!!!!!!!!!!!!!!!**

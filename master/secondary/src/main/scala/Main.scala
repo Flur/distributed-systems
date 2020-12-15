@@ -15,7 +15,7 @@ object Main extends App {
         case http.Method.Get => get(req)
         case http.Method.Post => post(req)
       }
-    }
+  }
 
   val server = Http.serve(":8081", service)
   Await.ready(server)
@@ -34,7 +34,7 @@ object Main extends App {
     )
   }
 
-    // todo to sockets
+  // todo to sockets
   def post(req: http.Request): Future[http.Response] = {
     val res = http.Response(req.version, http.Status.Ok)
     val content = req.getContentString()
