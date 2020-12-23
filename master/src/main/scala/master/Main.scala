@@ -1,92 +1,162 @@
 package master
 
-import com.twitter.finagle.{Http, Service, http}
-import com.twitter.util.{Await, Future}
+import akka.actor.ActorSystem
+import akka.http.scaladsl.Http
+import akka.stream.ActorMaterializer
+import akka.Done
+import akka.http.scaladsl.server.{RequestContext, Route, RouteResult}
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.model._
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import akka.http.scaladsl.model.HttpMethods.GET
+import akka.http.scaladsl.model.ws.{BinaryMessage, Message, TextMessage, WebSocketRequest}
+import akka.stream.scaladsl.{Flow, Keep, Sink, Source}
+import spray.json.DefaultJsonProtocol._
 
-import scala.collection.mutable.ListBuffer
-import scala.util.parsing.json.{JSON, JSONObject, JSONArray}
+import scala.io.StdIn
+import scala.concurrent.Future
 
+object Main {
+  // needed to run the route
+  implicit val system = ActorSystem()
+  implicit val materializer = ActorMaterializer()
+  // needed for the future map/flatmap in the end and future in fetchItem and saveOrder
+  implicit val executionContext = system.dispatcher
 
-object Main extends App {
-  type SecondaryService = Service[http.Request, http.Response]
+  var messages: List[MyMessage] = Nil
 
-  // add from env vars
-  var messagesCount = 0;
-  val secondariesPorts = List("8081", "8082" /*, "8083"*/)
-  val secondariesServices: List[SecondaryService] =
-    secondariesPorts.map((port: String) => Http.newService(s"host.docker.internal:${port}"))
+  final case class MyMessage(id: Int, data: String)
 
-  val masterService = new Service[http.Request, http.Response] {
-    def apply(req: http.Request): Future[http.Response] = req.method match {
-      case http.Method.Get => get(req)
-      case http.Method.Post => post(req)
+  // formats for unmarshalling and marshalling
+  implicit val messageFormat = jsonFormat2(MyMessage)
+
+  val secondaries = List("8081", "8082")
+
+  def fetchMessages(): Future[List[MyMessage]] = {
+    Future.successful(messages)
+  }
+
+  def addMessage(message: MyMessage): Future[Done] = {
+    messages = message :: messages
+
+    Future { Done }
+  }
+
+  def saveMessage(): Unit = {
+    println("save message")
+  }
+
+  def getMessages(): Unit = {
+    println("get message")
+  }
+
+  def sendMessage(message: String): Unit = {
+    // Future[Done] is the materialized value of Sink.foreach,
+    // emitted when the stream completes
+    val incoming: Sink[Message, Future[Done]] =
+    Sink.foreach[Message] {
+      case message: TextMessage.Strict =>
+        println(message.text)
+      case _ =>
+      // ignore other message types
     }
 
-  }
+    // send this as a message over the WebSocket
+    val outgoing = Source.single(TextMessage(message))
 
-  val server = Http.serve(":8080", masterService)
-  Await.ready(server)
+    // flow to use (note: not re-usable!)
+    val webSocketFlow = Http().webSocketClientFlow(WebSocketRequest("ws://localhost:8080/ws"))
 
-  def get(req: http.Request): Future[http.Response] = {
-    val requestsToSecondariesList = requestsToSecondaries(http.Method.Get)
+    // the materialized value is a tuple with
+    // upgradeResponse is a Future[WebSocketUpgradeResponse] that
+    // completes or fails when the connection succeeds or fails
+    // and closed is a Future[Done] with the stream completion from the incoming sink
+    val (upgradeResponse, closed) =
+    outgoing
+      .viaMat(webSocketFlow)(Keep.right) // keep the materialized Future[WebSocketUpgradeResponse]
+      .toMat(incoming)(Keep.both) // also keep the Future[Done]
+      .run()
 
-    Future.collect[http.Response](requestsToSecondariesList).flatMap(
-      (responses: Seq[http.Response]) => {
-        var messages: Map[String, String] = Map()
-        val res = http.Response(req.version, http.Status.Ok)
-
-
-        for (response <- responses) {
-          val content = response.getContentString()
-
-          val parsedContent = JSON.parseFull(content).orNull.asInstanceOf[Map[String, String]]
-
-          messages = messages ++ parsedContent
-        }
-
-        res.contentString = JSONArray(List.from(messages.values)).toString()
-        res.setContentTypeJson()
-
-        Future.value(res)
+    // just like a regular http request we can access response status which is available via upgrade.response.status
+    // status code 101 (Switching Protocols) indicates that server support WebSockets
+    val connected = upgradeResponse.flatMap { upgrade =>
+      if (upgrade.response.status == StatusCodes.SwitchingProtocols) {
+        Future.successful(Done)
+      } else {
+        throw new RuntimeException(s"Connection failed: ${upgrade.response.status}")
       }
-    )
-  }
-
-  def post(req: http.Request): Future[http.Response] = {
-    val res = http.Response(req.version, http.Status.Ok)
-    val content = req.getContentString()
-    val parsedContent = JSON.parseFull(content).orNull.asInstanceOf[Map[String, String]]
-
-    messagesCount += 1
-    val message = Map(messagesCount.toString -> parsedContent("message"))
-    val requestsToSecondariesList = requestsToSecondaries(http.Method.Post, JSONObject(message).toString())
-
-    Future.collect[http.Response](requestsToSecondariesList).flatMap(
-      (responses: Seq[http.Response]) => {
-        for (response <- responses) {
-          // todo logging
-          println(s"response from secondaries ${response.getContentString()}")
-        }
-
-        Future.value(res)
-      }
-    )
-  }
-
-  def requestsToSecondaries(method: http.Method, contentString: String = ""): ListBuffer[Future[http.Response]] = {
-    var requestsToSecondaries = new ListBuffer[Future[http.Response]]()
-
-    for (secondaryService <- secondariesServices) {
-      val req = http.Request(method, "/")
-
-      if (contentString.nonEmpty) {
-        req.setContentTypeJson()
-        req.setContentString(contentString)
-      }
-
-      requestsToSecondaries += secondaryService(req)
     }
+  }
 
-    requestsToSecondaries
+  def main(args: Array[String]) {
+
+
+    // The Greeter WebSocket Service expects a "name" per message and
+    // returns a greeting message for that name
+    val greeterWebSocketService =
+    Flow[Message]
+      .mapConcat { (i) => {
+        // we match but don't actually consume the text message here,
+        // rather we simply stream it back as the tail of the response
+        // this means we might start sending the response even before the
+        // end of the incoming message has been received
+        //        case tm: TextMessage => TextMessage.apply(Source.single("Hello ")) :: Nil
+        val message = i match {
+          case tm: TextMessage => TextMessage(Source.single("Hello ") ++ tm.textStream ++ Source.single("!")) :: Nil
+          case bm: BinaryMessage =>
+            // ignore binary messages but drain content to avoid the stream being clogged
+            bm.dataStream.runWith(Sink.ignore)
+            Nil
+        }
+
+        println(message)
+
+        message
+      }
+      }
+
+    // The Greeter WebSocket Service expects a "name" per message and
+    // returns a greeting message for that name
+//    def greeter: Flow[Message, Message, Any] =
+//      Flow[Message].mapConcat {
+//        case tm: TextMessage => TextMessage(Source.single("Hello ") ++ tm.textStream ++ Source.single("!")) :: Nil
+//        case bm: BinaryMessage =>
+//          // ignore binary messages but drain content to avoid the stream being clogged
+//          bm.dataStream.runWith(Sink.ignore)
+//          Nil
+//      }
+
+    val route: Route =
+      get {
+        pathSingleSlash {
+          val maybeItem: Future[List[MyMessage]] = fetchMessages()
+
+          onSuccess(maybeItem) { m =>
+            complete(m)
+          }
+        }
+      } ~
+      post {
+        pathSingleSlash {
+          entity(as[MyMessage]) { message =>
+            val saved: Future[Done] = addMessage(message)
+            onComplete(saved) { done =>
+              complete("order created")
+            }
+          }
+        }
+        } ~ path("ws") {
+          handleWebSocketMessages(greeterWebSocketService)
+      }
+
+//    val route = complete("yeah")
+
+    val bindingFuture = Http().bindAndHandle(route, "localhost", 8080)
+    println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
+    StdIn.readLine() // let it run until user presses return
+    bindingFuture
+      .flatMap(_.unbind()) // trigger unbinding from the port
+      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
+
   }
 }
