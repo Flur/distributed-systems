@@ -2,161 +2,98 @@ package master
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
-import akka.Done
-import akka.http.scaladsl.server.{RequestContext, Route, RouteResult}
+import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.model._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-import akka.http.scaladsl.model.HttpMethods.GET
-import akka.http.scaladsl.model.ws.{BinaryMessage, Message, TextMessage, WebSocketRequest}
-import akka.stream.scaladsl.{Flow, Keep, Sink, Source}
 import spray.json.DefaultJsonProtocol._
+import spray.json.{JsonParser, enrichAny}
 
-import scala.io.StdIn
 import scala.concurrent.Future
+import scala.io.StdIn
+
+case class ReplicatedMessage(id: Int, data: String)
+case class InputMessage(text: String)
+case class AddMessageEvent(message: ReplicatedMessage, eventType: String = "add-message")
+case class GetMessagesEvent(eventType: String = "get-messages")
+case class EventOutputWithMessages(eventType: String, data: List[ReplicatedMessage])
 
 object Main {
   // needed to run the route
   implicit val system = ActorSystem()
-  implicit val materializer = ActorMaterializer()
-  // needed for the future map/flatmap in the end and future in fetchItem and saveOrder
   implicit val executionContext = system.dispatcher
 
-  var messages: List[MyMessage] = Nil
-
-  final case class MyMessage(id: Int, data: String)
 
   // formats for unmarshalling and marshalling
-  implicit val messageFormat = jsonFormat2(MyMessage)
+  implicit val inputMessageFormat = jsonFormat1(InputMessage)
+  implicit val replicationMessageFormat = jsonFormat2(ReplicatedMessage)
+  implicit val addMessageEventFormat = jsonFormat2(AddMessageEvent)
+  implicit val getMessagesEventFormat = jsonFormat1(GetMessagesEvent)
+  implicit val listMessagesEventFormat = jsonFormat2(EventOutputWithMessages)
 
-  val secondaries = List("8081", "8082")
-
-  def fetchMessages(): Future[List[MyMessage]] = {
-    Future.successful(messages)
-  }
-
-  def addMessage(message: MyMessage): Future[Done] = {
-    messages = message :: messages
-
-    Future { Done }
-  }
-
-  def saveMessage(): Unit = {
-    println("save message")
-  }
-
-  def getMessages(): Unit = {
-    println("get message")
-  }
-
-  def sendMessage(message: String): Unit = {
-    // Future[Done] is the materialized value of Sink.foreach,
-    // emitted when the stream completes
-    val incoming: Sink[Message, Future[Done]] =
-    Sink.foreach[Message] {
-      case message: TextMessage.Strict =>
-        println(message.text)
-      case _ =>
-      // ignore other message types
-    }
-
-    // send this as a message over the WebSocket
-    val outgoing = Source.single(TextMessage(message))
-
-    // flow to use (note: not re-usable!)
-    val webSocketFlow = Http().webSocketClientFlow(WebSocketRequest("ws://localhost:8080/ws"))
-
-    // the materialized value is a tuple with
-    // upgradeResponse is a Future[WebSocketUpgradeResponse] that
-    // completes or fails when the connection succeeds or fails
-    // and closed is a Future[Done] with the stream completion from the incoming sink
-    val (upgradeResponse, closed) =
-    outgoing
-      .viaMat(webSocketFlow)(Keep.right) // keep the materialized Future[WebSocketUpgradeResponse]
-      .toMat(incoming)(Keep.both) // also keep the Future[Done]
-      .run()
-
-    // just like a regular http request we can access response status which is available via upgrade.response.status
-    // status code 101 (Switching Protocols) indicates that server support WebSockets
-    val connected = upgradeResponse.flatMap { upgrade =>
-      if (upgrade.response.status == StatusCodes.SwitchingProtocols) {
-        Future.successful(Done)
-      } else {
-        throw new RuntimeException(s"Connection failed: ${upgrade.response.status}")
-      }
-    }
-  }
+  // todo
+  var secondariesSocketsPorts: List[Int] = List()
+  var lastMessageId = 0
 
   def main(args: Array[String]) {
+    val httpPort = args(0).toInt
 
-
-    // The Greeter WebSocket Service expects a "name" per message and
-    // returns a greeting message for that name
-    val greeterWebSocketService =
-    Flow[Message]
-      .mapConcat { (i) => {
-        // we match but don't actually consume the text message here,
-        // rather we simply stream it back as the tail of the response
-        // this means we might start sending the response even before the
-        // end of the incoming message has been received
-        //        case tm: TextMessage => TextMessage.apply(Source.single("Hello ")) :: Nil
-        val message = i match {
-          case tm: TextMessage => TextMessage(Source.single("Hello ") ++ tm.textStream ++ Source.single("!")) :: Nil
-          case bm: BinaryMessage =>
-            // ignore binary messages but drain content to avoid the stream being clogged
-            bm.dataStream.runWith(Sink.ignore)
-            Nil
-        }
-
-        println(message)
-
-        message
-      }
-      }
-
-    // The Greeter WebSocket Service expects a "name" per message and
-    // returns a greeting message for that name
-//    def greeter: Flow[Message, Message, Any] =
-//      Flow[Message].mapConcat {
-//        case tm: TextMessage => TextMessage(Source.single("Hello ") ++ tm.textStream ++ Source.single("!")) :: Nil
-//        case bm: BinaryMessage =>
-//          // ignore binary messages but drain content to avoid the stream being clogged
-//          bm.dataStream.runWith(Sink.ignore)
-//          Nil
-//      }
+    secondariesSocketsPorts = args(1).toInt :: args(2).toInt :: secondariesSocketsPorts
 
     val route: Route =
       get {
         pathSingleSlash {
-          val maybeItem: Future[List[MyMessage]] = fetchMessages()
+          onSuccess(getMessagesFromSecondaries()) {
+            (responses: List[List[ReplicatedMessage]]) => {
+              var messagesMap: Map[Int, String] = Map()
 
-          onSuccess(maybeItem) { m =>
-            complete(m)
+              // remove duplicates with map by id
+              responses.foreach((messages) =>
+                messages.foreach((m) => {
+                  messagesMap = messagesMap + (m.id -> m.data)
+              }))
+
+              complete(messagesMap.values.toList)
+            }}
           }
-        }
       } ~
       post {
         pathSingleSlash {
-          entity(as[MyMessage]) { message =>
-            val saved: Future[Done] = addMessage(message)
-            onComplete(saved) { done =>
-              complete("order created")
+          entity(as[InputMessage]) { message =>
+            onSuccess(addMessage(message)) { (responses) => {
+              complete("Success")
+            }
             }
           }
         }
-        } ~ path("ws") {
-          handleWebSocketMessages(greeterWebSocketService)
       }
 
-//    val route = complete("yeah")
-
-    val bindingFuture = Http().bindAndHandle(route, "localhost", 8080)
-    println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
+    val bindingFuture = Http().bindAndHandle(route, "localhost", httpPort)
+    println(s"Server online at http://localhost:${httpPort}/\nPress RETURN to stop...")
     StdIn.readLine() // let it run until user presses return
     bindingFuture
       .flatMap(_.unbind()) // trigger unbinding from the port
       .onComplete(_ ⇒ system.terminate()) // and shutdown when done
+  }
 
+  def addMessage(message: InputMessage): Future[List[String]] = {
+    lastMessageId += 1
+
+    val futures: List[Future[String]] = secondariesSocketsPorts
+      .map((port) => SocketClient.run(port, AddMessageEvent(ReplicatedMessage(lastMessageId, message.text)).toJson.toString()))
+
+    Future.sequence(futures)
+  }
+
+  def getMessagesFromSecondaries(): Future[List[List[ReplicatedMessage]]] = {
+    val futures = secondariesSocketsPorts.map((port) => {
+      val event = GetMessagesEvent().toJson.toString()
+
+      SocketClient.run(port, event).transform(
+        (event) => JsonParser(event).convertTo[EventOutputWithMessages].data,
+        error => error
+        )
+    })
+
+    Future.sequence(futures)
   }
 }

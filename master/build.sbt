@@ -15,8 +15,8 @@ lazy val master = (project in file("."))
     libraryDependencies += "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
     libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.10",
     libraryDependencies += "com.typesafe.akka" %% "akka-actor"  % "2.6.10",
-    libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion
-  )
+    libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion,
+)
 
 lazy val secondary = (project in file("secondary"))
   .enablePlugins(JavaAppPackaging)
@@ -26,5 +26,4 @@ lazy val secondary = (project in file("secondary"))
     libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.10",
     libraryDependencies += "com.typesafe.akka" %% "akka-actor"  % "2.6.10",
     libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion,
-    libraryDependencies += "io.socket" %% "socket.io-client" % "1.0.1"
 )

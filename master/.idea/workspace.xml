@@ -14,54 +14,27 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3aa15ba-afbd-49d4-bce8-572645e548ca" name="Default Changelist" comment="giignore">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_twitter_hpack_1_0_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_actor_2_12_2_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_actor_2_13_2_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_2_12_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_2_13_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_core_2_12_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_core_2_13_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_spray_json_2_12_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_spray_json_2_13_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_parsing_2_12_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_parsing_2_13_10_2_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_protobuf_v3_2_12_2_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_protobuf_v3_2_13_2_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_stream_2_12_2_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_stream_2_13_2_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_config_1_4_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_ssl_config_core_2_12_0_4_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_ssl_config_core_2_13_0_4_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__io_spray_spray_json_2_12_1_3_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__io_spray_spray_json_2_13_1_3_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_reactivestreams_reactive_streams_1_0_3_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_java8_compat_2_12_0_8_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_java8_compat_2_13_0_9_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_parser_combinators_2_12_1_1_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_parser_combinators_2_13_1_1_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_12_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_3_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/master-build.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/master.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/master.secondary.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../secondary/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../secondary/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../secondary/secondary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/UCU.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/secondary/src/main/scala/secondary/Main.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/secondary/src/main/scala/secondary/SocketServer.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/master/SocketClient.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/master-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/master-build.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/master.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/master.secondary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/master.secondary.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondary/src/main/scala/Main.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondary/src/main/scala/Main22.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/master/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/master/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/master/Main2.scala" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,17 +66,21 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/scala/master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/secondary/src/main/scala/secondary" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.36552346" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\avedilin\Desktop\distributed-systems\master\secondary\src\main\scala\secondary" />
+      <recent name="C:\Users\avedilin\Desktop\distributed-systems\master\src\main\scala\master" />
       <recent name="C:\Users\Flur\Desktop\Ucu\disturbuted-systems\master\src\main\scala\master" />
       <recent name="C:\Users\Flur\Desktop\Ucu\disturbuted-systems\master\secondary" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="master" />
+      <recent name="secondary" />
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -111,13 +88,26 @@
       <recent name="C:\Users\Flur\Desktop\Ucu\disturbuted-systems\master\secondary" />
     </key>
   </component>
-  <component name="RunManager" selected="sbt Task.Run secondary">
+  <component name="RunManager" selected="sbt Task.Run secondary 2">
     <configuration name="Run master" type="SbtRunConfiguration" factoryName="sbt Task" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="selectedOptions">
         <set />
       </option>
-      <option name="tasks" value="~run" />
+      <option name="tasks" value="&quot;~run 8080 8082 8084&quot;" />
+      <option name="useSbtShell" value="false" />
+      <option name="vmparams" value="" />
+      <option name="workingDir" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Run secondary 2" type="SbtRunConfiguration" factoryName="sbt Task" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <option name="tasks" value="&quot;project secondary; ~run 8083 8084 -sleep&quot;" />
       <option name="useSbtShell" value="false" />
       <option name="vmparams" value="" />
       <option name="workingDir" value="$PROJECT_DIR$" />
@@ -130,7 +120,7 @@
       <option name="selectedOptions">
         <set />
       </option>
-      <option name="tasks" value="&quot;project secondary; ~run&quot;" />
+      <option name="tasks" value="&quot;project secondary; ~run 8081 8082&quot;" />
       <option name="useSbtShell" value="false" />
       <option name="vmparams" value="" />
       <option name="workingDir" value="$PROJECT_DIR$" />
@@ -141,6 +131,7 @@
     <list>
       <item itemvalue="sbt Task.Run master" />
       <item itemvalue="sbt Task.Run secondary" />
+      <item itemvalue="sbt Task.Run secondary 2" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -169,6 +160,9 @@
     <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -180,7 +174,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
@@ -199,39 +193,75 @@
     <option name="LAST_COMMIT_MESSAGE" value="giignore" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1011" y="456" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1608761340598">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="-2828" y="455" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1609255071389">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state x="-2828" y="455" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255071389" />
+    <state x="607" y="268" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1608912625097" />
     <state x="1011" y="456" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608761340598" />
-    <state x="552" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608674283819">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="-3288" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609255248566">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state x="-3288" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255248566" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608065072343" />
     <state x="552" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608674283819" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1605778198203">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-2741" y="615" width="386" height="170" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog" timestamp="1608808306676">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state x="-2741" y="615" width="386" height="170" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1608808306676" />
+    <state x="-3747" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1609144102589">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-3747" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609144102589" />
+    <state x="-2853" y="370" key="FileChooserDialogImpl" timestamp="1609164901757">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-2853" y="370" key="FileChooserDialogImpl/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609164901757" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605778198203" />
-    <state width="2517" height="394" key="GridCell.Tab.0.bottom" timestamp="1608761027809">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="511" key="GridCell.Tab.0.bottom" timestamp="1609255765309">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state width="2517" height="511" key="GridCell.Tab.0.bottom/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255765309" />
+    <state width="1493" height="334" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
-    <state width="2517" height="394" key="GridCell.Tab.0.center" timestamp="1608761027809">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="511" key="GridCell.Tab.0.center" timestamp="1609255765309">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state width="2517" height="511" key="GridCell.Tab.0.center/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255765309" />
+    <state width="1493" height="334" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
-    <state width="2517" height="394" key="GridCell.Tab.0.left" timestamp="1608761027809">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="511" key="GridCell.Tab.0.left" timestamp="1609255765309">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state width="2517" height="511" key="GridCell.Tab.0.left/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255765309" />
+    <state width="1493" height="334" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
-    <state width="2517" height="394" key="GridCell.Tab.0.right" timestamp="1608761027809">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="511" key="GridCell.Tab.0.right" timestamp="1609255765309">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state width="2517" height="511" key="GridCell.Tab.0.right/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255765309" />
+    <state width="1493" height="334" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1609108717753">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609108717753" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1609108717753">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609108717753" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1609108717752">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609108717752" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1609108717753">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609108717753" />
     <state x="649" y="222" key="RollbackChangesDialog" timestamp="1605699527282">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -248,13 +278,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="342" y="203" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1607981956909" />
-    <state x="937" y="331" key="run.anything.popup" timestamp="1608557948033">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="-2903" y="331" key="run.anything.popup" timestamp="1609084048131">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state x="-2903" y="331" key="run.anything.popup/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609084048131" />
     <state x="937" y="331" key="run.anything.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1608557948033" />
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1608671802687">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="-2897" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1609244304039">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state x="-2897" y="315" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609244304039" />
     <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1608671802687" />
   </component>
 </project>
