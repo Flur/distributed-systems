@@ -22,7 +22,6 @@ object Main {
   implicit val system = ActorSystem()
   implicit val executionContext = system.dispatcher
 
-
   // formats for unmarshalling and marshalling
   implicit val inputMessageFormat = jsonFormat1(InputMessage)
   implicit val replicationMessageFormat = jsonFormat2(ReplicatedMessage)
@@ -30,7 +29,6 @@ object Main {
   implicit val getMessagesEventFormat = jsonFormat1(GetMessagesEvent)
   implicit val listMessagesEventFormat = jsonFormat2(EventOutputWithMessages)
 
-  // todo
   var secondariesSocketsPorts: List[Int] = List()
   var lastMessageId = 0
 
@@ -78,9 +76,11 @@ object Main {
     val bindingFuture = Http().bindAndHandle(route, "localhost", httpPort)
     println(s"Server online at http://localhost:${httpPort}/\nPress RETURN to stop...")
     StdIn.readLine() // let it run until user presses return
-    bindingFuture
-      .flatMap(_.unbind()) // trigger unbinding from the port
-      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
+
+    // somehow this is not working in docker
+//    bindingFuture
+//      .flatMap(_.unbind()) // trigger unbinding from the port
+//      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
   }
 
   def addMessage(message: InputMessage): Future[List[String]] = {

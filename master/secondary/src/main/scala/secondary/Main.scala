@@ -39,8 +39,6 @@ object Main {
       shouldSleep = true
     }
 
-
-
     val route: Route =
       get {
         pathSingleSlash {
