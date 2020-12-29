@@ -34,6 +34,8 @@ object Main {
   var secondariesSocketsPorts: List[Int] = List()
   var lastMessageId = 0
 
+  var messages: List[ReplicatedMessage] = List()
+
   def main(args: Array[String]) {
     val httpPort = args(0).toInt
 
@@ -42,6 +44,12 @@ object Main {
     val route: Route =
       get {
         pathSingleSlash {
+          complete(messages)
+          }
+      } ~
+        // redundant api, could be deleted
+      get {
+        path("/from-secondaries") {
           onSuccess(getMessagesFromSecondaries()) {
             (responses: List[List[ReplicatedMessage]]) => {
               var messagesMap: Map[Int, String] = Map()
@@ -54,7 +62,7 @@ object Main {
 
               complete(messagesMap.values.toList)
             }}
-          }
+        }
       } ~
       post {
         pathSingleSlash {
@@ -78,8 +86,12 @@ object Main {
   def addMessage(message: InputMessage): Future[List[String]] = {
     lastMessageId += 1
 
+    val newMessage = ReplicatedMessage(lastMessageId, message.text)
+
+    messages = newMessage :: messages
+
     val futures: List[Future[String]] = secondariesSocketsPorts
-      .map((port) => SocketClient.run(port, AddMessageEvent(ReplicatedMessage(lastMessageId, message.text)).toJson.toString()))
+      .map((port) => SocketClient.run(port, AddMessageEvent(newMessage).toJson.toString()))
 
     Future.sequence(futures)
   }
