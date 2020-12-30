@@ -25,5 +25,4 @@ run ```curl -D - localhost:8080```  to get all messages from master
 - install flask ```pip install Flask``` or ```pip install -r requirements.txt```
 - run ```export FLASK_APP=secondary.py``` and ```flask run```
 
-**TODO**
-**UPDATE THIS DOCS!!!!!!!!!!!!!!!!!**
+**Team Members: Andriy Vedilin & Diana Dmytrashko**
