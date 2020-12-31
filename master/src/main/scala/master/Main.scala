@@ -106,8 +106,13 @@ object Main {
     val futures: List[Future[String]] = secondariesSocketsPorts
       .map((port) => SocketClient.run(port, AddMessageEvent(newMessage).toJson.toString()))
 
+    // to write only on master
+    if (writeConcern == 1) {
+      return Future.successful(List("Success"))
+    }
+
     // maybe we should apply success to all futures...
-    Future.sequence(futures.take(writeConcern))
+    Future.sequence(futures.take(writeConcern - 1))
   }
 
   def getMessagesFromSecondaries(): Future[List[List[ReplicatedMessage]]] = {
