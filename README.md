@@ -28,6 +28,8 @@ You should have installed sbt=1.3.13 and javac=15, and python=3.8
   - flask http will be running on port 8081 and socket on 8082 \
   P.S. it's not a trivial task to pass flask server additional arguments 
 
+
 **Docker support**
 It's possible to create docker image for python and scala (```Docke/publishLocal``` in sbt per each project) apps, 
 but scala app is not responding when it's running, we need some time to fix it
+
