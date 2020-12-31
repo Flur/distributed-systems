@@ -20,10 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3aa15ba-afbd-49d4-bce8-572645e548ca" name="Default Changelist" comment="proper master implementation">
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/UCU.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/UCU.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondary/src/main/scala/secondary/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/secondary/src/main/scala/secondary/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/master/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/master/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../secondary/secondary.py" beforeDir="false" afterPath="$PROJECT_DIR$/../secondary/secondary.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="SET_USER_NAME_GLOBALLY" value="false" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -77,7 +77,7 @@
       <recent name="C:\Users\Flur\Desktop\Ucu\disturbuted-systems\master\secondary" />
     </key>
   </component>
-  <component name="RunManager" selected="sbt Task.Run master">
+  <component name="RunManager" selected="sbt Task.Run secondary">
     <configuration name="Run master" type="SbtRunConfiguration" factoryName="sbt Task" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="selectedOptions">
@@ -119,8 +119,8 @@
     </configuration>
     <list>
       <item itemvalue="sbt Task.Run master" />
-      <item itemvalue="sbt Task.Run secondary" />
       <item itemvalue="sbt Task.Run secondary 2" />
+      <item itemvalue="sbt Task.Run secondary" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -204,10 +204,10 @@
     <state x="-2828" y="455" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609256440301" />
     <state x="607" y="268" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1608912625097" />
     <state x="1011" y="456" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608761340598" />
-    <state x="-3288" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609260645906">
+    <state x="-3288" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609404888555">
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
-    <state x="-3288" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609260645906" />
+    <state x="-3288" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609404888555" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608065072343" />
     <state x="552" y="236" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608674283819" />
     <state x="-2741" y="615" width="386" height="170" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog" timestamp="1608808306676">
@@ -223,31 +223,35 @@
     </state>
     <state x="-2853" y="370" key="FileChooserDialogImpl/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609164901757" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605778198203" />
-    <state width="2517" height="511" key="GridCell.Tab.0.bottom" timestamp="1609261466825">
+    <state width="2517" height="601" key="GridCell.Tab.0.bottom" timestamp="1609404993136">
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="511" key="GridCell.Tab.0.bottom/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609261466825" />
+    <state width="2517" height="601" key="GridCell.Tab.0.bottom/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609404993136" />
+    <state width="1493" height="323" key="GridCell.Tab.0.bottom/0.0.1536.824/-3840.0.2560.1400@0.0.1536.824" timestamp="1609277242882" />
     <state width="1493" height="334" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
-    <state width="2517" height="511" key="GridCell.Tab.0.center" timestamp="1609261466825">
+    <state width="2517" height="601" key="GridCell.Tab.0.center" timestamp="1609404993136">
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="511" key="GridCell.Tab.0.center/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609261466825" />
+    <state width="2517" height="601" key="GridCell.Tab.0.center/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609404993136" />
+    <state width="1493" height="323" key="GridCell.Tab.0.center/0.0.1536.824/-3840.0.2560.1400@0.0.1536.824" timestamp="1609277242881" />
     <state width="1493" height="334" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
-    <state width="2517" height="511" key="GridCell.Tab.0.left" timestamp="1609261466825">
+    <state width="2517" height="601" key="GridCell.Tab.0.left" timestamp="1609404993135">
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="511" key="GridCell.Tab.0.left/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609261466825" />
+    <state width="2517" height="601" key="GridCell.Tab.0.left/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609404993135" />
+    <state width="1493" height="323" key="GridCell.Tab.0.left/0.0.1536.824/-3840.0.2560.1400@0.0.1536.824" timestamp="1609277242881" />
     <state width="1493" height="334" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
-    <state width="2517" height="511" key="GridCell.Tab.0.right" timestamp="1609261466825">
+    <state width="2517" height="601" key="GridCell.Tab.0.right" timestamp="1609404993136">
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="511" key="GridCell.Tab.0.right/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609261466825" />
+    <state width="2517" height="601" key="GridCell.Tab.0.right/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609404993136" />
+    <state width="1493" height="323" key="GridCell.Tab.0.right/0.0.1536.824/-3840.0.2560.1400@0.0.1536.824" timestamp="1609277242881" />
     <state width="1493" height="334" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1608999254547" />
     <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608374348372" />
     <state width="2517" height="394" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1608761027809" />
@@ -267,9 +271,10 @@
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609108717753" />
-    <state x="649" y="222" key="RollbackChangesDialog" timestamp="1605699527282">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-2975" y="299" key="RollbackChangesDialog" timestamp="1609403310832">
+      <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
+    <state x="-2975" y="299" key="RollbackChangesDialog/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609403310832" />
     <state x="649" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605699527282" />
     <state x="440" y="94" width="1320" height="851" key="SettingsEditor" timestamp="1608065681921">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -280,6 +285,10 @@
     </state>
     <state x="-3104" y="341" key="Vcs.Push.Dialog.v2/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609255915696" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605699998995" />
+    <state x="-2742" y="615" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609397975407">
+      <screen x="-3840" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-2742" y="615" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609397975407" />
     <state x="342" y="203" key="new project wizard" timestamp="1607981956909">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
