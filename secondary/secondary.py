@@ -5,6 +5,9 @@ from flask import Flask
 import time
 import sys
 import random
+import selectors
+
+sel = selectors.DefaultSelector()
 
 app = Flask(__name__)
 message_list = []
@@ -21,28 +24,37 @@ class SocketServer:
             s.bind((self.HOST, self.PORT))
             print("socket binded to %s" % self.PORT)
             s.listen(1)
-            conn, addr = s.accept()
-            with conn:
-                print('Connected by', addr)
-                while True:
-                    data = conn.recv(1024)
-                    print("received event %s" % data)
-                    if not data:
-                        break
-                    response = self.receive_data(data)
-                    conn.sendall(response)
-                conn.close()
+
+            self.listen_to_socket(s)
+
+    def listen_to_socket(self, socket):
+        conn, addr = socket.accept()
+        print('Connected by', addr)
+        while True:
+            data = conn.recv(1024)
+            print("received event %s" % data)
+            if not data:
+                break
+            response = self.receive_data(data)
+            conn.sendall(response)
+        print("end of listening")
+        conn.close()
+        # listening again
+        self.listen_to_socket(socket)
+
     @staticmethod
     def receive_data(data):
         # time.sleep(random.randint(3, 8))
         event = json.loads(data)
-        print(event)
         if event["eventType"] == "add-message":
             message_list.append(event["message"])
         event_message = {
             "eventType": "ok"
         }
-        return json.dumps(event_message).encode()
+
+        print("sending message %s" % json.dumps(event_message) + "\r\n")
+
+        return ("%s \n\r" % json.dumps(event_message)).encode()
 
 class ThreadForSocket(Thread):
     def run(self):
