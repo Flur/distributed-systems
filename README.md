@@ -11,7 +11,13 @@ You should have installed sbt=1.3.13 and javac=15, and python=3.8
 - run master in sbt with ports ```run 8080 8082 8084``` 
     - first arg is port for http server 
     - second arg is socket port for secondary
-    - third arg is socket for another secondary
+    - third arg is socket for another secondary \
+    
+    HTTP API  
+    - GET on '/' - list of all messages on master  
+    - POST on '/' with json body ```{"text": "message"}``` - replicate message to all secondaries 
+    - POST on '/writeConcern' with json body ```{"text": "message", "writeConcern": 3}``` - replicate message 
+    to all secondaries with write concern 
 
 **Scala Secondary**
 - goto master folder ```cd master``` 
@@ -20,13 +26,20 @@ You should have installed sbt=1.3.13 and javac=15, and python=3.8
 - run secondary in sbt with ports ```run 8081 8082 ```
     - first arg is port for http server 
     - second arg is socket port
+    
+    HTTP API  
+        - GET on '/' - list of all messages
 
 **Python Secondary**
 - go to secondary
 - install flask ```pip install Flask``` or ```pip install -r requirements.txt```
 - run ```export FLASK_APP=secondary.py``` and ```flask run -p 8081```
   - flask http will be running on port 8081 and socket on 8082 \
-  P.S. it's not a trivial task to pass flask server additional arguments 
+  
+  P.S. it's not a trivial task to pass flask server additional arguments \
+  
+  HTTP API  
+          - GET on '/' - list of all messages 
 
 
 **Docker support**
