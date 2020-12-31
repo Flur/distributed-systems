@@ -26,4 +26,4 @@ run ```curl -D - localhost:8080```  to get all messages from master
 - run ```export FLASK_APP=secondary.py``` and ```flask run```
 
 **Team Members: Andriy Vedilin & Diana Dmytrashko**
-** Each Iteration of Task is located in related branches or tags**
+**Each Iteration of Task is located in related branches or tags**
