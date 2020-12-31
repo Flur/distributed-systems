@@ -15,8 +15,8 @@ def hello_world():
 
 class SocketServer:
     HOST = '127.0.0.1'
-    PORT = int(sys.argv[1])
-    def init(self):
+    PORT = int(sys.argv[3]) + 1
+    def __init__(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.HOST, self.PORT))
             print("socket binded to %s" % self.PORT)
@@ -25,7 +25,6 @@ class SocketServer:
             with conn:
                 print('Connected by', addr)
                 while True:
-                    time.sleep(random.randint(3, 8))
                     data = conn.recv(1024)
                     print("received event %s" % data)
                     if not data:
@@ -35,10 +34,11 @@ class SocketServer:
                 conn.close()
     @staticmethod
     def receive_data(data):
+        # time.sleep(random.randint(3, 8))
         event = json.loads(data)
         print(event)
         if event["eventType"] == "add-message":
-            message_list.append(event["data"])
+            message_list.append(event["message"])
         event_message = {
             "eventType": "ok"
         }
