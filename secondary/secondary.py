@@ -15,7 +15,7 @@ def hello_world():
 
 class SocketServer:
     HOST = '127.0.0.1'
-    PORT = int(sys.argv[3]) + 1
+    PORT = int(sys.argv[3]) + 1 # variant of solution https://github.com/pallets/flask/issues/3095
     def __init__(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.HOST, self.PORT))
