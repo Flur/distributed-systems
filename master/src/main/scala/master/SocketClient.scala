@@ -33,6 +33,8 @@ object SocketClient {
         if (echoSocket != null) echoSocket.close()
         if (out != null) out.close()
         if (in != null) in.close()
+
+        println(s"Socket close with ack ${result}")
       }
 
       result
