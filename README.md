@@ -11,7 +11,7 @@ You should have installed sbt=1.3.13 and javac=15, and python=3.8
 - run master in sbt with ports ```run 8080 8082 8084``` 
     - first arg is port for http server 
     - second arg is socket port for secondary
-    - third arg is socket for another secondary \
+    - third arg is socket for another secondary
     
     HTTP API  
     - GET on '/' - list of all messages on master  
@@ -34,9 +34,9 @@ You should have installed sbt=1.3.13 and javac=15, and python=3.8
 - go to secondary
 - install flask ```pip install Flask``` or ```pip install -r requirements.txt```
 - run ```export FLASK_APP=secondary.py``` and ```flask run -p 8081```
-  - flask http will be running on port 8081 and socket on 8082 \
+  - flask http will be running on port 8081 and socket on 8082
   
-  P.S. it's not a trivial task to pass flask server additional arguments \
+  P.S. it's not a trivial task to pass flask server additional arguments, thus socket port is evaluated as httpPort + 1
   
   HTTP API  
           - GET on '/' - list of all messages 
