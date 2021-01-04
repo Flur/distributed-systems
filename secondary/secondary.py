@@ -11,9 +11,13 @@ sel = selectors.DefaultSelector()
 
 app = Flask(__name__)
 message_list = []
+message_ids = []
 
 @app.route('/')
-def hello_world():
+def hello_world(message_list = message_list):
+    for i in range(1, len(message_list)):
+        if (message_list[i-1]["id"] + 1) != message_list[i]["id"]:
+            message_list = message_list[:i]
     return json.dumps(message_list)
 
 class SocketServer:
@@ -46,8 +50,9 @@ class SocketServer:
     def receive_data(data):
         # time.sleep(random.randint(3, 8))
         event = json.loads(data)
-        if event["eventType"] == "add-message":
+        if event["eventType"] == "add-message" and event["message"]["id"] not in message_ids:
             message_list.append(event["message"])
+            message_ids.append(event["message"]["id"])
         event_message = {
             "eventType": "ok"
         }
