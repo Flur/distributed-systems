@@ -13,6 +13,7 @@ import scala.io.StdIn
 
 case class ReplicatedMessage(id: Int, data: String)
 case class InputMessage(text: String)
+case class InputMessageWithWriteConcern(text: String, writeConcern: Int)
 case class AddMessageEvent(message: ReplicatedMessage, eventType: String = "add-message")
 case class GetMessagesEvent(eventType: String = "get-messages")
 case class EventOutputWithMessages(eventType: String, data: List[ReplicatedMessage])
@@ -24,6 +25,7 @@ object Main {
 
   // formats for unmarshalling and marshalling
   implicit val inputMessageFormat = jsonFormat1(InputMessage)
+  implicit val inputMessageWithWriteConcernFormat = jsonFormat2(InputMessageWithWriteConcern)
   implicit val replicationMessageFormat = jsonFormat2(ReplicatedMessage)
   implicit val addMessageEventFormat = jsonFormat2(AddMessageEvent)
   implicit val getMessagesEventFormat = jsonFormat1(GetMessagesEvent)
@@ -39,6 +41,8 @@ object Main {
 
     secondariesSocketsPorts = args(1).toInt :: args(2).toInt :: secondariesSocketsPorts
 
+    val DEFAULT_WRITE_CONCERN = secondariesSocketsPorts.length + 1
+
     val route: Route =
       get {
         pathSingleSlash {
@@ -47,7 +51,7 @@ object Main {
       } ~
         // redundant api, could be deleted
       get {
-        path("/from-secondaries") {
+        path("from-secondaries") {
           onSuccess(getMessagesFromSecondaries()) {
             (responses: List[List[ReplicatedMessage]]) => {
               var messagesMap: Map[Int, String] = Map()
@@ -65,7 +69,16 @@ object Main {
       post {
         pathSingleSlash {
           entity(as[InputMessage]) { message =>
-            onSuccess(addMessage(message)) { (responses) => {
+            onSuccess(addMessage(message.text, DEFAULT_WRITE_CONCERN)) { (responses) => {
+              complete("Success")
+            }
+            }
+          }
+        }
+      }  ~ post {
+        path("writeConcern") {
+          entity(as[InputMessageWithWriteConcern]) { message =>
+            onSuccess(addMessage(message.text, message.writeConcern)) { (responses) => {
               complete("Success")
             }
             }
@@ -83,17 +96,23 @@ object Main {
 //      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
   }
 
-  def addMessage(message: InputMessage): Future[List[String]] = {
+  def addMessage(message: String, writeConcern: Int): Future[List[String]] = {
     lastMessageId += 1
 
-    val newMessage = ReplicatedMessage(lastMessageId, message.text)
+    val newMessage = ReplicatedMessage(lastMessageId, message)
 
     messages = newMessage :: messages
 
     val futures: List[Future[String]] = secondariesSocketsPorts
       .map((port) => SocketClient.run(port, AddMessageEvent(newMessage).toJson.toString()))
 
-    Future.sequence(futures)
+    // to write only on master
+    if (writeConcern == 1) {
+      return Future.successful(List("Success"))
+    }
+
+    // maybe we should apply success to all futures...
+    Future.sequence(futures.take(writeConcern - 1))
   }
 
   def getMessagesFromSecondaries(): Future[List[List[ReplicatedMessage]]] = {
