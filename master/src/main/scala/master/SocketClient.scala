@@ -2,14 +2,17 @@ package master
 
 import java.io.{BufferedReader, IOException, InputStreamReader, PrintWriter}
 import java.net.{Socket, UnknownHostException}
+import java.util.concurrent.CountDownLatch
+
 import akka.actor.ActorSystem
+
 import scala.concurrent.Future
 
 object SocketClient {
   implicit val system = ActorSystem()
   implicit val executionContext = system.dispatcher
 
-  def run(port: Int, eventMessage: String): Future[String] = {
+  def run(port: Int, eventMessage: String, countDownLatch: CountDownLatch): Future[String] = {
     Future {
       val echoSocket = new Socket("localhost", port)
       val out = new PrintWriter(echoSocket.getOutputStream, true)
@@ -37,6 +40,7 @@ object SocketClient {
         println(s"Socket close with ack ${result}")
       }
 
+      countDownLatch.countDown()
       result
     }
   }

@@ -19,10 +19,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3aa15ba-afbd-49d4-bce8-572645e548ca" name="Default Changelist" comment="proper master implementation">
-      <change beforePath="$PROJECT_DIR$/../.idea/UCU.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/UCU.iml" afterDir="false" />
+    <list default="true" id="e3aa15ba-afbd-49d4-bce8-572645e548ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../secondary/secondary.py" beforeDir="false" afterPath="$PROJECT_DIR$/../secondary/secondary.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/master/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/master/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/master/SocketClient.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/master/SocketClient.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609256640210</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="dddddd">
+      <created>1609793305383</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609793305383</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -195,7 +202,8 @@
     <MESSAGE value="giignore" />
     <MESSAGE value="iteration 1 on akka with sockets done" />
     <MESSAGE value="proper master implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="proper master implementation" />
+    <MESSAGE value="dddddd" />
+    <option name="LAST_COMMIT_MESSAGE" value="dddddd" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-2828" y="455" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1609256440301">

@@ -1,5 +1,7 @@
 package master
 
+import java.util.concurrent.CountDownLatch
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
@@ -49,23 +51,6 @@ object Main {
           complete(messages)
           }
       } ~
-        // redundant api, could be deleted
-      get {
-        path("from-secondaries") {
-          onSuccess(getMessagesFromSecondaries()) {
-            (responses: List[List[ReplicatedMessage]]) => {
-              var messagesMap: Map[Int, String] = Map()
-
-              // remove duplicates with map by id
-              responses.foreach((messages) =>
-                messages.foreach((m) => {
-                  messagesMap = messagesMap + (m.id -> m.data)
-              }))
-
-              complete(messagesMap.values.toList)
-            }}
-        }
-      } ~
       post {
         pathSingleSlash {
           entity(as[InputMessage]) { message =>
@@ -96,35 +81,20 @@ object Main {
 //      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
   }
 
-  def addMessage(message: String, writeConcern: Int): Future[List[String]] = {
+  def addMessage(message: String, writeConcern: Int): Future[String] = {
     lastMessageId += 1
 
     val newMessage = ReplicatedMessage(lastMessageId, message)
 
     messages = newMessage :: messages
 
-    val futures: List[Future[String]] = secondariesSocketsPorts
-      .map((port) => SocketClient.run(port, AddMessageEvent(newMessage).toJson.toString()))
+    val countDownLatch = new CountDownLatch(writeConcern - 1)
 
-    // to write only on master
-    if (writeConcern == 1) {
-      return Future.successful(List("Success"))
-    }
+    secondariesSocketsPorts
+      .map((port) => SocketClient.run(port, AddMessageEvent(newMessage).toJson.toString(), countDownLatch))
 
-    // maybe we should apply success to all futures...
-    Future.sequence(futures.take(writeConcern - 1))
-  }
+    countDownLatch.await()
 
-  def getMessagesFromSecondaries(): Future[List[List[ReplicatedMessage]]] = {
-    val futures = secondariesSocketsPorts.map((port) => {
-      val event = GetMessagesEvent().toJson.toString()
-
-      SocketClient.run(port, event).transform(
-        (event) => JsonParser(event).convertTo[EventOutputWithMessages].data,
-        error => error
-        )
-    })
-
-    Future.sequence(futures)
+    Future.successful("Success")
   }
 }
