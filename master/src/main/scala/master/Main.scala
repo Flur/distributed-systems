@@ -182,8 +182,6 @@ object Main {
 
     cancellable.cancel()
 
-    println(res)
-
     Future(res)
   }
 

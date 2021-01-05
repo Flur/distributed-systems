@@ -1,14 +1,37 @@
 # todo!!
 
-version: "3.8"
+version: "3.9"
 services:
   master:
-    build: ./master
+    build: ./master/target/docker/stage
+    #    volumes:
+    #      - .:/code
+    command: "8080 8082 8084 -docker"
     ports:
-      - "5000:5000"
+      - "8080:8080"
   secondary:
-    build: ./secondary-py
-    volumes:
-      - .:/code
-    depends_on:
-      - master
+    build: ./secondary/
+    command: "8081"
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+  secondary2:
+    build: ./secondary/
+    command: "8083"
+    ports:
+      - "8083:8083"
+      - "8084:8084"
+
+#  secondary:
+#    build: ./master/secondary/target/docker/stage
+#    command: "8081 8082"
+#    ports:
+#      - "8081:8081"
+#      - "8082:8082"
+#  secondary2:
+#    build: ./master/secondary/target/docker/stage
+#    command: "8083 8084 -sleep"
+#    ports:
+#      - "8083:8083"
+#      - "8084:8084"
+

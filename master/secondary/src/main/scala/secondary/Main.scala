@@ -38,7 +38,7 @@ object Main {
     val route: Route =
       get {
         pathSingleSlash {
-          complete(getMessages)
+          complete(messages)
         }
       }
 
@@ -88,10 +88,6 @@ object Main {
     if (m.isEmpty) {
       messages = message :: messages
     }
-
-    println(message)
-    println(m)
-    println(messages)
   }
 
   def getMessages(): List[ReplicatedMessage] = {
@@ -109,9 +105,6 @@ object Main {
         isAll = true
       }
     }
-
-    println(messages)
-    println(filteredMessages)
 
     filteredMessages
   }

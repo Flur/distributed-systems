@@ -50,7 +50,9 @@ class SocketServer:
 
     @staticmethod
     def receive_data(data):
-        # time.sleep(random.randint(3, 8))
+        print("Start Sleep")
+        time.sleep(random.randint(1, 3))
+        print("End Sleep")
         event = json.loads(data)
         if event["eventType"] == "add-message" and event["message"]["id"] not in message_ids:
             message_list.append(event["message"])
