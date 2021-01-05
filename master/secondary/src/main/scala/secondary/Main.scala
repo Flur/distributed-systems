@@ -7,13 +7,10 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import spray.json.DefaultJsonProtocol._
-import spray.json.{JsString, JsValue, JsonParser, enrichAny}
-
-import scala.io.StdIn
+import spray.json.{JsValue, JsonParser, enrichAny}
 
 case class ReplicatedMessage(id: Int, data: String)
 case class MasterEvent(eventType: String, message: Option[JsValue] = None)
-case class EventOutputWithMessages(eventType: String, data: List[ReplicatedMessage])
 case class EventOutput(eventType: String)
 
 object Main {
@@ -24,7 +21,6 @@ object Main {
   implicit val myMessageFormat = jsonFormat2(ReplicatedMessage)
   implicit val wsEventFormat = jsonFormat2(MasterEvent)
   implicit val wsEventOutputFormat = jsonFormat1(EventOutput)
-  implicit val wsEventOutputWithMessagesFormat = jsonFormat2(EventOutputWithMessages)
 
   implicit var messages: List[ReplicatedMessage] = List()
   var shouldSleep = false
@@ -42,7 +38,7 @@ object Main {
     val route: Route =
       get {
         pathSingleSlash {
-          complete(messages)
+          complete(getMessages)
         }
       }
 
@@ -54,12 +50,13 @@ object Main {
 
     th.start()
 
-    val bindingFuture = Http().newServerAt("localhost", httpPort).bind(route)
+    // this is not working in docker, docker run only with -i and without -d
+    val bindingFuture = Http().newServerAt("0.0.0.0", httpPort).bind(route)
     println(s"Server online at http://localhost:${httpPort}/\nPress RETURN to stop...")
-    StdIn.readLine() // let it run until user presses return
-    bindingFuture
-      .flatMap(_.unbind()) // trigger unbinding from the port
-      .onComplete(_ => system.terminate()) // and shutdown when done
+//    StdIn.readLine() // let it run until user presses return
+//    bindingFuture
+//      .flatMap(_.unbind()) // trigger unbinding from the port
+//      .onComplete(_ => system.terminate()) // and shutdown when done
   }
 
   def receiveStringFromMaster(data: String): String = {
@@ -68,23 +65,54 @@ object Main {
     if (event.eventType == "add-message") {
       val message = event.message.get.convertTo[ReplicatedMessage]
 
-      messages = message :: messages
-
       if (shouldSleep) {
         // todo for first iteration
-        Thread.sleep(5000)
+        Thread.sleep(20000)
       }
 
+      deduplication(message)
 
       return EventOutput("ok").toJson.toString()
     }
 
-    println("d", event)
-
-    if (event.eventType == "get-messages") {
-      return EventOutputWithMessages("ok", messages).toJson.toString()
+    if (event.eventType == "health-check") {
+      return EventOutput("ok").toJson.toString()
     }
 
     EventOutput("fail").toJson.toString()
+  }
+
+  def deduplication(message: ReplicatedMessage):Unit = {
+    val m = messages.find((m) => m.id == message.id)
+
+    if (m.isEmpty) {
+      messages = message :: messages
+    }
+
+    println(message)
+    println(m)
+    println(messages)
+  }
+
+  def getMessages(): List[ReplicatedMessage] = {
+    var filteredMessages: List[ReplicatedMessage] = List()
+    var isAll = false
+
+    for ((m, i) <- messages.zipWithIndex) {
+      val nextMessage = messages.lift(i + 1)
+
+      if (!isAll) {
+        filteredMessages = m :: filteredMessages
+      }
+
+      if (nextMessage.isEmpty || nextMessage.get.id != m.id + 1) {
+        isAll = true
+      }
+    }
+
+    println(messages)
+    println(filteredMessages)
+
+    filteredMessages
   }
 }

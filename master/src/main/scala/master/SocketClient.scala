@@ -12,36 +12,38 @@ object SocketClient {
   implicit val system = ActorSystem()
   implicit val executionContext = system.dispatcher
 
-  def run(port: Int, eventMessage: String, countDownLatch: CountDownLatch): Future[String] = {
+  def sendMessage(port: Int, eventMessage: String, countDownLatch: CountDownLatch): Future[String] = {
     Future {
-      val echoSocket = new Socket("localhost", port)
-      val out = new PrintWriter(echoSocket.getOutputStream, true)
-      val in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream))
-      var result = ""
-
-      try {
-        out.println(eventMessage)
-
-        println(s"Send ${eventMessage} to socket on port ${port}")
-
-        result = in.readLine()
-      } catch {
-        case e: UnknownHostException =>
-          System.err.println("Don't know about host " + port)
-          System.exit(1)
-        case e: IOException =>
-          System.err.println("Couldn't get I/O for the connection to " + port)
-          System.exit(1)
-      } finally {
-        if (echoSocket != null) echoSocket.close()
-        if (out != null) out.close()
-        if (in != null) in.close()
-
-        println(s"Socket close with ack ${result}")
-      }
-
-      countDownLatch.countDown()
-      result
+      sendMessageNoFuture(port, eventMessage, countDownLatch)
     }
+  }
+
+  def sendMessageNoFuture(port: Int, eventMessage: String, countDownLatch: CountDownLatch): String = {
+    val result = sendSimpleMessage(port, eventMessage)
+    countDownLatch.countDown()
+
+    println(s"Send ${eventMessage} to socket on port ${port}")
+    println(s"Socket close with ack ${result}")
+
+    result
+  }
+
+  def sendSimpleMessage(port: Int, eventMessage: String): String = {
+    //  host.docker.internal
+    val socket = new Socket("0.0.0.0", port)
+
+    val out = new PrintWriter(socket.getOutputStream, true)
+    val in = new BufferedReader(new InputStreamReader(socket.getInputStream))
+    var result = ""
+
+    out.println(eventMessage)
+
+    result = in.readLine()
+
+    if (socket != null) socket.close()
+    if (out != null) out.close()
+    if (in != null) in.close()
+
+    result
   }
 }

@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  master:
+    build: ./target/docker/stage
+#    volumes:
+#      - .:/code
+    ports:
+      - "8085:8080"
+  secondary:
+    build: .secondary/target/docker/stage
+    ports:
+      - "8085:8080"
+  secondary2:
+    build: .secondary/target/docker/stage
+      ports:
+        - "8085:8080"
