@@ -11,6 +11,13 @@ import scala.concurrent.Future
 object SocketClient {
   implicit val system = ActorSystem()
   implicit val executionContext = system.dispatcher
+  var host = "0.0.0.0"
+
+  def init(inDocker: Boolean): Unit ={
+    if (inDocker) {
+      host = "host.docker.internal"
+    }
+  }
 
   def sendMessage(port: Int, eventMessage: String, countDownLatch: CountDownLatch): Future[String] = {
     Future {
@@ -29,8 +36,7 @@ object SocketClient {
   }
 
   def sendSimpleMessage(port: Int, eventMessage: String): String = {
-    //  host.docker.internal
-    val socket = new Socket("0.0.0.0", port)
+    val socket = new Socket(host, port)
 
     val out = new PrintWriter(socket.getOutputStream, true)
     val in = new BufferedReader(new InputStreamReader(socket.getInputStream))

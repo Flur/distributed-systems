@@ -19,9 +19,11 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3aa15ba-afbd-49d4-bce8-572645e548ca" name="Default Changelist" comment="iteration v 3">
+    <list default="true" id="e3aa15ba-afbd-49d4-bce8-572645e548ca" name="Default Changelist" comment="iteration v 3 - docker compose">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/master/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/master/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/master/SocketClient.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/master/SocketClient.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +182,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609806971161</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="iteration v 3 - docker compose">
+      <created>1609830251119</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1609830251119</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -218,7 +227,8 @@
     <MESSAGE value="dddddd" />
     <MESSAGE value="iteration v 2 &#10;proper write concern" />
     <MESSAGE value="iteration v 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="iteration v 3" />
+    <MESSAGE value="iteration v 3 - docker compose" />
+    <option name="LAST_COMMIT_MESSAGE" value="iteration v 3 - docker compose" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-2828" y="455" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1609803681066">
@@ -303,10 +313,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" width="1320" height="851" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1608065681921" />
-    <state x="-3104" y="341" key="Vcs.Push.Dialog.v2" timestamp="1609806975684">
+    <state x="-3104" y="341" key="Vcs.Push.Dialog.v2" timestamp="1609830252483">
       <screen x="-3840" y="0" width="2560" height="1400" />
     </state>
-    <state x="-3104" y="341" key="Vcs.Push.Dialog.v2/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609806975684" />
+    <state x="-3104" y="341" key="Vcs.Push.Dialog.v2/0.0.1536.824/-3840.0.2560.1400@-3840.0.2560.1400" timestamp="1609830252483" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605699998995" />
     <state x="-3747" y="93" width="2375" height="1215" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1609806946058">
       <screen x="-3840" y="0" width="2560" height="1400" />

@@ -51,6 +51,12 @@ object Main {
 
     val secondaryPort = args(1).toInt
     val secondaryPort2 = args(2).toInt
+    val inDocker = args.lift(3)
+
+    if (inDocker.isDefined && inDocker.get == "-docker") {
+      SocketClient.init(true)
+    }
+
     secondariesSocketsPorts = secondaryPort :: secondaryPort2 :: secondariesSocketsPorts
 
     DEFAULT_WRITE_CONCERN = secondariesSocketsPorts.length + 1

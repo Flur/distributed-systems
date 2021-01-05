@@ -4,7 +4,7 @@ services:
     build: ./target/docker/stage
 #    volumes:
 #      - .:/code
-    command: "8080 8082 8084"
+    command: "8080 8082 8084 -docker"
     ports:
       - "8080:8080"
   secondary:
@@ -15,7 +15,7 @@ services:
       - "8082:8082"
   secondary2:
     build: ./secondary/target/docker/stage
-    command: "8083 8084"
+    command: "8083 8084 -sleep"
     ports:
       - "8083:8083"
       - "8084:8084"
